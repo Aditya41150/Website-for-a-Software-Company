@@ -1,35 +1,74 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("contact-form");
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  // Create error message container
+  let errorMsg = document.getElementById("form-error");
+  if (!errorMsg) {
+    errorMsg = document.createElement("div");
+    errorMsg.id = "form-error";
+    errorMsg.setAttribute('role', 'alert');
+    errorMsg.style.color = "#d32f2f";
+    errorMsg.style.marginTop = "0.5em";
+    errorMsg.style.display = "none";
+    form.insertBefore(errorMsg, submitBtn);
+  }
+
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const name = form.elements["name"].value;
-    const email = form.elements["email"].value;
-    const message = form.elements["message"].value;
+    // Clear previous errors
+    errorMsg.style.display = "none";
+    errorMsg.textContent = "";
 
-    // Simulate form submission
-    console.log("Form submitted", { name, email, message });
+    const name = form.elements["name"].value.trim();
+    const email = form.elements["email"].value.trim();
+    const message = form.elements["message"].value.trim();
 
-    // Clear the form
-    form.reset();
+    // Simple validation
+    if (!name || !email || !message) {
+      errorMsg.textContent = "All fields are required.";
+      errorMsg.style.display = "block";
+      form.querySelector('[name="name"]').focus();
+      return;
+    }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      errorMsg.textContent = "Please enter a valid email address.";
+      errorMsg.style.display = "block";
+      form.querySelector('[name="email"]').focus();
+      return;
+    }
 
-    // google photos integration 
-    const googlePhotosContainer = document.getElementById("google-photos");
+    // Disable button and show loading
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
 
-    fetch("https://photoslibrary.googleapis.com/v1/mediaItems", {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer YOUR_ACCESS_TOKEN",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        data.mediaItems.forEach((item) => {
-          const img = document.createElement("img");
-          img.src = item.baseUrl;
-          googlePhotosContainer.appendChild(img);
-        });
-      })
-      .catch((error) => console.error("Error fetching Google Photos:", error));
+    // Simulate async submission
+    setTimeout(() => {
+      // Show success message
+      let successMsg = document.getElementById("form-success");
+      if (!successMsg) {
+        successMsg = document.createElement("div");
+        successMsg.id = "form-success";
+        successMsg.setAttribute('role', 'status');
+        successMsg.style.color = "#0083b0";
+        successMsg.style.marginTop = "1em";
+        successMsg.style.opacity = 0;
+        successMsg.style.transition = "opacity 0.7s";
+        form.parentNode.appendChild(successMsg);
+      }
+      successMsg.textContent = "Thank you for contacting us! We'll get back to you soon.";
+      successMsg.style.opacity = 1;
+
+      // Clear the form
+      form.reset();
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit";
+
+      // Hide success after 5s
+      setTimeout(() => {
+        successMsg.style.opacity = 0;
+      }, 5000);
+    }, 1200);
   });
 });

@@ -30,11 +30,10 @@
             <div class="content">
                 <p>Your partner in innovative software solutions.</p>
                 <h1>Welcome to Nexus Software</h1>
-                <div id="google-photos" class="photo-gallery">
-
-                    <!-- Google Photos integration goes here -->
-                    <script src="https://apis.google.com/js/api.js"></script>
-
+                <div id="google-photos" class="photo-gallery" aria-label="Photo Gallery">
+                    <!-- Static gallery for demo; replace with dynamic integration as needed -->
+                    <img src="images/background.avif" alt="Office workspace" />
+                    <img src="images/photo-1623479322729-28b25c16b011.avif" alt="Team collaboration" />
                 </div>
             </div>
         </section>
@@ -66,33 +65,38 @@
         </section>
 
         <section id="products" class="products-section">
-            <div class="product">
-              <img src="path/to/product1-image.jpg" alt="Product 1">
-              <h3>Product 1 Title</h3>
-              <p>Description of Product 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-            
-            <div class="product">
-              <img src="path/to/product2-image.jpg" alt="Product 2">
-              <h3>Product 2 Title</h3>
-              <p>Description of Product 2. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="content">
+                <h2>Our Products</h2>
+                <div class="product-gallery">
+                    <div class="product-card">
+                        <img src="images/background.avif" alt="Product 1 screenshot">
+                        <h3>Product 1 Title</h3>
+                        <p>Description of Product 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                    <div class="product-card">
+                        <img src="images/photo-1623479322729-28b25c16b011.avif" alt="Product 2 screenshot">
+                        <h3>Product 2 Title</h3>
+                        <p>Description of Product 2. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
             </div>
 
-        <section id="contact">
+    </section>
+    <section id="contact">  
             <div class="content">
                 <h2>Contact Us</h2>
-                <form id="contact-form">
+                <form id="contact-form" aria-label="Contact form">
                     <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
+                        <label for="name" style="color: #000;">Name<span aria-hidden="true" style="color:#d32f2f">*</span></label>
+                        <input type="text" id="name" name="name" required aria-required="true" autocomplete="name" placeholder="Enter your name" />
                     </div>
                     <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="email" style="color: #000;">Email<span aria-hidden="true" style="color:#d32f2f">*</span></label>
+                        <input type="email" id="email" name="email" required aria-required="true" autocomplete="email" placeholder="your@email.com" />
                     </div>
                     <div class="form-group">
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" required></textarea>
+                        <label for="message" style="color: #000;">Message<span aria-hidden="true" style="color:#d32f2f">*</span></label>
+                        <textarea id="message" name="message" required aria-required="true" placeholder="Type your message here..."></textarea>
                     </div>
                     <button type="submit">Submit</button>
                 </form>
